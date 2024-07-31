@@ -1,0 +1,17 @@
+﻿# Ignore the .vscode folder, which contains user-specific settings
+.vscode
+
+# Ignore the publish folder, which contains the compressed
+publish
+
+# Ignore the TestResults folder, which contains test results
+TestResults
+
+# Ignore the Function.zip file, which contains the compressed module
+Function.zip
+
+# Ignore the local.settings.json file, which contains local settings
+local.settings.json
+
+# Ignore the temp folder, which contains temporary files
+temp
