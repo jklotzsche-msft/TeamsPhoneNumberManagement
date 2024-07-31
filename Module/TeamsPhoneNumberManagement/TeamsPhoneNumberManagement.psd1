@@ -4,7 +4,7 @@
     RootModule        = 'TeamsPhoneNumberManagement.psm1'
     
     # Version number of this module.
-    ModuleVersion     = '1.1.0'
+    ModuleVersion     = '1.1.1'
     
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -123,7 +123,7 @@
             ProjectUri   = 'https://github.com/jklotzsche-msft/TeamsPhoneNumberManagement'
     
             # A URL to an icon representing this module.
-            IconUri      = 'https://raw.githubusercontent.com/jklotzsche-msft/TeamsPhoneNumberManagement/main/Documentation/_images/TeamsPhoneNumberManagement_Topology.png'
+            IconUri      = 'https://raw.githubusercontent.com/jklotzsche-msft/TeamsPhoneNumberManagement/main/Documentation/_images/TPNM_Logo.png'
     
             # ReleaseNotes of this module
             ReleaseNotes = 'https://github.com/jklotzsche-msft/TeamsPhoneNumberManagement/Documentation/ReleaseNotes.md'

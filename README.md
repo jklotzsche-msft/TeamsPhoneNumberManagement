@@ -4,6 +4,8 @@ You are a Teams admin and you want to manage PSTN phone numbers for your Teams u
 
 Then this solution is for you! The TeamsPhoneNumberManagement solution provides you with a way to manage the phone numbers for your Teams users in a structured and automated way.
 
+<img src="./Documentation/_images/TPNM_Logo.png" alt="TeamsPhoneNumberManagement logo: a human with a screen as a head holding a phone" width="800"/>
+
 ## Why TeamsPhoneNumberManagement?
 
 The TeamsPhoneNumberManagement solution provides you with the following benefits:
