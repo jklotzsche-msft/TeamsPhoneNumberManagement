@@ -4,7 +4,7 @@
     RootModule        = 'TeamsPhoneNumberManagement.psm1'
     
     # Version number of this module.
-    ModuleVersion     = '1.1.1'
+    ModuleVersion     = '1.1.2'
     
     # Supported PSEditions
     # CompatiblePSEditions = @()
