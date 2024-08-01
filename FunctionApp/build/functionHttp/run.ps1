@@ -32,9 +32,7 @@ if ($parameters.Debug -eq "True") { $parameters.Debug = $true }
 else { $parameters.Debug = $false }
 
 # Connect to the database
-if ($null -eq (Get-TPNMDatabaseConnection).State) {
-	Connect-TPNMDatabase -SqlServerName $env:SqlServerName -SqlDatabaseName $env:SqlDatabaseName -Verbose:$parameters.Verbose -Debug:$parameters.Debug -ErrorAction Stop
-}
+Connect-TPNMDatabase -Verbose:$parameters.Verbose -Debug:$parameters.Debug -ErrorAction Stop
 
 try {
 	$results = %COMMAND% @parameters -ErrorAction Stop
@@ -45,7 +43,9 @@ catch {
 			Write-Warning $line
 		}
 	}
+	Disconnect-TPNMDatabase
 	Write-FunctionResult -Status InternalServerError -Body "$_"
 	return
 }
+Disconnect-TPNMDatabase
 Write-FunctionResult -Status OK -Body $results

@@ -80,7 +80,9 @@
 
     Process {
         # Prepare hashtable for splatting
-        $getTpnmSplat = @{}
+        $getTpnmSplat = @{
+            ResultSize = "unlimited"
+        }
         
         # Add the parameters to the hashtable as provided
         if ($CountryId) { $getTpnmSplat.CountryId = $CountryId }
