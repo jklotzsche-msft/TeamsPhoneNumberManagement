@@ -1,5 +1,15 @@
 ﻿# Release Notes
 
+## Version 1.1.3
+
+### Enhancements
+
+- Add the `SqlConnectionTimeout` parameter to the `Connect-TPNMDatabase` function to allow users to specify the timeout for the SQL connection. Additionally, the default timeout has been increased to 30 seconds to prevent timeouts when connecting to the database.
+
+### Breaking Changes
+
+- Updated the `Connect-TPNMDatabase` function to use the `-AsSecureString` parameter of `Get-AzAccessToken`. This change is necessary to support the new version of the `Az` module in the future.
+
 ## Version 1.1.2
 
 ### Bug Fixes

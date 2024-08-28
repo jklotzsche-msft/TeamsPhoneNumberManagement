@@ -40,7 +40,10 @@
         $SqlServerName = $env:SqlServerName,
 
         [string]
-        $SqlDatabaseName = $env:SqlDatabaseName
+        $SqlDatabaseName = $env:SqlDatabaseName,
+
+        [int]
+        $SqlConnectionTimeout = 30
     )
 
     Begin {
@@ -57,7 +60,7 @@
 
         # Get the token for the Azure SQL Database
         Write-Verbose "Getting token from ResourceUrl 'https://database.windows.net/'."
-        $sqlToken = Get-AzAccessToken -ResourceUrl 'https://database.windows.net/'
+        $sqlToken = Get-AzAccessToken -ResourceUrl 'https://database.windows.net/' -AsSecureString
 
         # Create a new SqlConnection object
         # This variable is defined in the script scope, so it can be used by other functions of this script
@@ -66,8 +69,8 @@
 
         # Set the AccessToken and ConnectionString properties
         Write-Verbose "Setting the AccessToken and ConnectionString properties."
-        $sqlConnection.AccessToken = $sqlToken.Token
-        $sqlConnection.ConnectionString = 'Server={0}.database.windows.net;Initial Catalog={1};Encrypt=True;TrustServerCertificate=True;' -f $SqlServerName, $SqlDatabaseName
+        $sqlConnection.AccessToken = $sqlToken.Token | ConvertFrom-SecureString -AsPlainText
+        $sqlConnection.ConnectionString = 'Server={0}.database.windows.net;Initial Catalog={1};Encrypt=True;TrustServerCertificate=True;Connection Timeout={2}' -f $SqlServerName, $SqlDatabaseName, $SqlConnectionTimeout
 
         # Open the connection
         Write-Verbose "Opening the connection."
