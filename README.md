@@ -64,6 +64,10 @@ The solution provides you with a set of runbooks. The [Update-TPNMDatabase.ps1](
 
 Please refer to the [runbook documentation](./Documentation/Runbooks.md) for more information on how to use the runbooks.
 
+## Frequently Asked Questions
+
+Please refer to the [FAQ](./Documentation/FAQ.md) for answers to frequently asked questions.
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
