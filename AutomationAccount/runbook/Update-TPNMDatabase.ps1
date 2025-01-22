@@ -172,7 +172,16 @@ foreach ($row in $assigned) {
 
 # Get all PSTN numbers from Teams
 Write-DebugToOutputStream -Message 'Getting all PSTN numbers from Teams...'
-$allPSTNNumbers = Get-CsPhoneNumberAssignment -Top $TPNMAuto_PhoneNumberAssigmentResultSize | Select-Object -Property TelephoneNumber, AssignedPstnTargetId
+# $allPSTNNumbers = Get-CsPhoneNumberAssignment -Top $TPNMAuto_PhoneNumberAssigmentResultSize | Select-Object -Property TelephoneNumber, AssignedPstnTargetId
+## Previously, the Get-CsPhoneNumberAssignment cmdlet allowed to retrieve all PSTN numbers at once.
+## In MC950880, the cmdlet was updated to return a maximum of 1000 PSTN numbers.
+## Therefore, we have to retrieve the PSTN numbers in chunks of 1000 and merge the results.
+$allPSTNNumbers = [System.Collections.Generic.List[PSObject]]::new()
+$offset = 0
+do {
+    Get-CsPhoneNumberAssignment -Top 1000 -Skip $offset | Select-Object -Property TelephoneNumber, AssignedPstnTargetId | ForEach-Object { $allPSTNNumbers.Add($_) }
+    $offset += 1000
+} while ($csOnlineUsers.Count -eq 1000)
 Write-DebugToOutputStream -Message '...OK'
 
 # Read the TPNM ranges table from the Azure SQL database
@@ -188,6 +197,14 @@ foreach ($number in $allPSTNNumbers) {
     foreach ($range in $ranges) {
         $fullrange = '{0}{1}' -f $range.CountryCode, $range.ExtRangeSpan
         if ($number.TelephoneNumber -like "$fullrange*") {
+            # Check, if we are dealing with the correct range, even if there are multiple ranges with the same prefix
+            [int]$extension = $number.Telephonenumber.replace("$fullrange", "")
+            if ($extension -lt ([int]$range.ExtRangeSpanStart) -or $extension -gt ([int]$range.ExtRangeSpanEnd)) {
+                Write-Warning "The number $($number.telephonenumber) is not part of the range $($range.ExtRangeSpanStart)..$($range.ExtRangeSpanEnd). Continuing with the next number."
+                continue
+            }
+
+            # Create the result object
             $resultObject = @{
                 ExtRangeId           = $range.ExtRangeId
                 AllocationExtension  = $number.Telephonenumber.replace("$fullrange", "")

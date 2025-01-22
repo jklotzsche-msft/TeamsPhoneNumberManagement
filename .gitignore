@@ -15,3 +15,6 @@ local.settings.json
 
 # Ignore the temp folder, which contains temporary files
 temp
+
+# ignore sensitive information
+LabJK_Deployment.txt
