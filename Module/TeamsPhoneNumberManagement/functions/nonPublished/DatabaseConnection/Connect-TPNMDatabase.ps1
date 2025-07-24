@@ -16,6 +16,10 @@
         The name of the SQL Database.
         It defaults to the value of the environment variable 'SqlDatabaseName' if not provided.
 
+        .PARAMETER SqlConnectionTimeout
+        The timeout for the SQL connection in seconds.
+        It defaults to 30 seconds if not provided.
+
         .EXAMPLE
         Connect-TPNMDatabase -SqlServerName "myServer" -SqlDatabaseName "myDatabase"
 
@@ -46,12 +50,12 @@
         $SqlConnectionTimeout = 30
     )
 
-    Begin {
+    begin {
         # Set the error action preference to stop and trap the error.
         $ErrorActionPreference = 'Stop'
     }
 
-    Process {
+    process {
         # Check, if we are connected to Azure
         $azContext = Get-AzContext -ErrorAction SilentlyContinue
         if (-not $azContext) {
@@ -65,7 +69,7 @@
         # Create a new SqlConnection object
         # This variable is defined in the script scope, so it can be used by other functions of this script
         Write-Verbose "Creating a new SqlConnection object."
-        $script:sqlConnection = New-Object -TypeName 'System.Data.SqlClient.SqlConnection'
+        $script:sqlConnection = New-Object -TypeName 'Microsoft.Data.SqlClient.SqlConnection'
 
         # Set the AccessToken and ConnectionString properties
         Write-Verbose "Setting the AccessToken and ConnectionString properties."

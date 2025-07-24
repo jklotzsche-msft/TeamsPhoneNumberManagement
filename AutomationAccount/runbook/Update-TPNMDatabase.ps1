@@ -25,6 +25,9 @@
     By default, it retrieves the value from the Azure Automation Variable 'TPNMAuto_SQLDatabaseName'.
 
     .PARAMETER TPNMAuto_PhoneNumberAssigmentResultSize
+    This parameter has been deprecated and is no longer used.
+    It is kept for backward compatibility.
+    
     The number of PSTN numbers to retrieve from Teams.
     Should be equal to or greater than the maximum expected number of PSTN numbers in Teams.
     By default, it retrieves the value from the Azure Automation Variable 'TPNMAuto_PhoneNumberAssigmentResultSize'.

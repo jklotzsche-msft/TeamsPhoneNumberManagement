@@ -165,6 +165,15 @@ Additionally, we need automation variables for our runbooks to run smoothly. To 
 
 - **TPNMAuto_SQLServerName**: The name of the Azure SQL Database server you created.
 - **TPNMAuto_SQLDatabaseName**: The name of the Azure SQL Database you created.
+
+> **Important:**  
+> **TPNMAuto_PhoneNumberAssigmentResultSize** has been **deprecated** and is retained in the script only for backward compatibility.
+>
+> **Reason:**  
+> Previously, the `Get-CsPhoneNumberAssignment` cmdlet allowed retrieval of all PSTN numbers at once.  
+> However, as per MC950880, the cmdlet was updated to return a maximum of 1000 PSTN numbers per call.  
+> As a result, PSTN numbers must now be retrieved in chunks of 1000 and the results merged.
+
 - **TPNMAuto_PhoneNumberAssigmentResultSize**: The number of PSTN numbers to retrieve from Teams when updating the database. Should be equal or greater your maximum expected number of PSTN numbers in Teams.
 
 If you want to enable Teams Phone using the automation account, you must add the following variables in addition:

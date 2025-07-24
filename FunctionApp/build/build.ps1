@@ -65,8 +65,8 @@ foreach ($command in Get-ChildItem -Path "$moduleFolder\TeamsPhoneNumberManageme
 }
 
 # Generate Timer Trigger
-$timerCode = Get-Content -Path "$PSScriptRoot\functionTimer\run.ps1" | Join-String "`n"
-$timerConfig = Get-Content -Path "$PSScriptRoot\functionTimer\function.json" | Join-String "`n"
+$timerCode = Get-Content -Path "$PSScriptRoot\functionTimer\run.ps1" | Join-String -Separator "`n"
+$timerConfig = Get-Content -Path "$PSScriptRoot\functionTimer\function.json" | Join-String -Separator "`n"
 foreach ($command in Get-ChildItem -Path "$moduleFolder\TeamsPhoneNumberManagement\functions\timerTrigger" -Recurse -File -Filter *.ps1) {
 	$schedule = $config.TimerTrigger.Schedule
 	if ($config.TimerTrigger.ScheduleOverride.$($command.BaseName)) {
