@@ -75,6 +75,6 @@ if ($LocalRepo) {
 else {
 	# Publish to Gallery
 	Write-Host  "Publishing the TeamsPhoneNumberManagement module to $($Repository)"
-	Publish-Module -Path "$($publishDir.FullName)\TeamsPhoneNumberManagement" -NuGetApiKey $ApiKey -Force -Repository $Repository
+	Publish-PSResource -Path "$($publishDir.FullName)\TeamsPhoneNumberManagement" -ApiKey $ApiKey -Repository $Repository
 }
 #endregion Publish
