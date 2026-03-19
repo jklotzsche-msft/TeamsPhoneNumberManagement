@@ -182,7 +182,8 @@ Write-DebugToOutputStream -Message 'Getting all PSTN numbers from Teams...'
 $allPSTNNumbers = [System.Collections.Generic.List[PSObject]]::new()
 $offset = 0
 do {
-    Get-CsPhoneNumberAssignment -Top 1000 -Skip $offset | Select-Object -Property TelephoneNumber, AssignedPstnTargetId | ForEach-Object { $allPSTNNumbers.Add($_) }
+    $csOnlineUsers = Get-CsPhoneNumberAssignment -Top 1000 -Skip $offset | Select-Object -Property TelephoneNumber, AssignedPstnTargetId
+    $csOnlineUsers | ForEach-Object { $allPSTNNumbers.Add($_) }
     $offset += 1000
 } while ($csOnlineUsers.Count -eq 1000)
 Write-DebugToOutputStream -Message '...OK'
