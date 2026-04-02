@@ -128,7 +128,7 @@ foreach ($row in $requested) {
     $number = $row.CountryCode + $row.ExtRangeSpan + $row.AllocationExtension
     $csOnlineUser = Get-CsPhoneNumberAssignment -TelephoneNumber $number -ErrorAction SilentlyContinue
     if ($csOnlineUser.PstnAssignmentStatus -ne 'Unassigned' -and $csOnlineUser.count -eq 1) {
-        Write-DebugToOutputStream -Message "The number $number has been assigned to the user $($csOnlineUser.UserPrincipalName) in Teams! Updating the state of the allocation to 'Assigned'..."
+        Write-DebugToOutputStream -Message "The number $number has been assigned to the user $($csOnlineUser.AssignedPstnTargetId) in Teams! Updating the state of the allocation to 'Assigned'..."
         Set-TPNMAllocation -AllocationId $row.AllocationId -AllocationState 'Assigned' -Confirm:$false
         Set-TPNMAllocation -AllocationId $row.AllocationId -AllocationDescription $csonlineuser.AssignedPstnTargetId -Confirm:$false
     }
@@ -164,7 +164,7 @@ foreach ($row in $assigned) {
         Write-Warning "The number $number has been assigned to multiple users in Teams! Must be checked manually..."
     }
     else {
-        Write-DebugToOutputStream -Message "The number $number has been assigned to the user $($csOnlineUser.UserPrincipalName) in Teams! Keeping the allocation in the database..."
+        Write-DebugToOutputStream -Message "The number $number has been assigned to the user $($csOnlineUser.AssignedPstnTargetId) in Teams! Keeping the allocation in the database..."
     }
     Write-DebugToOutputStream -Message '...OK'
 }
