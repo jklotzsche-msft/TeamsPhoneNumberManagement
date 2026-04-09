@@ -186,6 +186,8 @@ do {
     $csOnlineUsers | ForEach-Object { $allPSTNNumbers.Add($_) }
     $offset += 1000
 } while ($csOnlineUsers.Count -eq 1000)
+# Filter out unassigned numbers, as we are only interested in the assigned numbers for this check
+$allPSTNNumbers = $allPSTNNumbers | Where-Object { $_.PstnAssignmentStatus -ne 'Unassigned' }
 Write-DebugToOutputStream -Message '...OK'
 
 # Read the TPNM ranges table from the Azure SQL database
